@@ -176,8 +176,8 @@ LeafID_3    A
 | Tab | Contents |
 |---|---|
 | **Tree information** | All nodes and leaves: mutations, leaf count, Rho, std err, age, confidence interval |
-| **ƒ¹ statistics** | Source→sink nodes: mutations, ƒ¹ leaves, Rho, std err |
-| **ƒ² statistics** | Sink→source nodes: mutations, ƒ² leaves, Rho, std err, eligibility |
+| **ƒ¹ statistics** | mutations, ƒ¹ leaves, Rho, std err |
+| **ƒ² statistics** | mutations, ƒ² leaves, Rho, std err, eligibility |
 | **ƒ¹ founder analysis** | Per-node migration probabilities at each date (ƒ¹) |
 | **ƒ² founder analysis** | Per-node migration probabilities at each date (ƒ²) |
 
