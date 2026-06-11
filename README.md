@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![GitHub](https://img.shields.io/badge/GitHub-FounderSorter-181717?logo=github)](https://github.com/joaomiguelsov/FounderSorter)
 
-A Python desktop application for phylogenetic founder analysis — computing and visualising the probability that lineages in a tree were introduced by migration events at specific dates, distinguishing two founder types.
+A Python desktop application for phylogenetic founder analysis, computing and visualising the probability that lineages in a tree were introduced by migration events at specific dates, distinguishing two founder types.
 
 ---
 
