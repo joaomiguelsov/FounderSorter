@@ -2,7 +2,7 @@
 
 A Python desktop application for phylogenetic founder analysis, computing and visualising the probability that lineages in a tree were introduced by migration events at specific dates, distinguishing two founder types.
 
-Implements the methodology described in **Vieira et al. (2020)** *(PACBB, AISC 1005, pp. 121–128, DOI: [10.1007/978-3-030-23873-5_15](https://doi.org/10.1007/978-3-030-23873-5_15))*.
+Implements the methodology described in **Vieira et al. (2019)** *(PACBB, AISC 1005, pp. 121–128, DOI: [10.1007/978-3-030-23873-5_15](https://doi.org/10.1007/978-3-030-23873-5_15))*.
 
 ---
 
