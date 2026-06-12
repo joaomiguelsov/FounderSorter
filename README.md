@@ -1,8 +1,34 @@
-# Founder Analysis 3 (FA3)
+# Founder Analysis
 
-A Python desktop application for phylogenetic founder analysis, computing and visualising the probability that lineages in a tree were introduced by migration events at specific dates, distinguishing two founder types.
+> A desktop tool for phylogenetic founder analysis of mitochondrial DNA trees
 
-Implements the methodology described in **Vieira et al. (2019)** *(PACBB, AISC 1005, pp. 121–128, DOI: [10.1007/978-3-030-23873-5_15](https://doi.org/10.1007/978-3-030-23873-5_15))*.
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)
+![Platform](https://img.shields.io/badge/Platform-Windows%2011-0078D4?logo=windows&logoColor=white)
+![GUI](https://img.shields.io/badge/GUI-Tkinter-orange)
+![License](https://img.shields.io/badge/License-MIT-green)
+
+Computes and visualises the probability that lineages in a phylogenetic tree were introduced by migration events at specific dates, distinguishing two founder stringency levels (ƒ¹ and ƒ²).
+
+Implements the methodology described in **Vieira et al. (2019)** — *An Efficient and User-Friendly Implementation of the Founder Analysis Methodology*, PACBB 2019, AISC 1005, pp. 121–128. [https://doi.org/10.1007/978-3-030-23873-5_15](https://doi.org/10.1007/978-3-030-23873-5_15)
+
+---
+
+## Contents
+
+- [Installation](#installation)
+  - [Option A — Windows Executable](#option-a--windows-executable-recommended)
+  - [Option B — Run from Source](#option-b--run-from-source)
+  - [Option C — Build Executable from Source](#option-c--build-executable-from-source)
+- [Usage](#usage)
+- [Input Formats](#input-formats)
+- [Tabs](#tabs)
+- [Plots](#plots)
+- [Computation Parameters](#computation-parameters)
+- [Export Options](#export-options)
+- [Case Study](#case-study)
+- [File Structure](#file-structure)
+- [Authors](#authors)
+- [Reference](#reference)
 
 ---
 
@@ -15,6 +41,7 @@ Implements the methodology described in **Vieira et al. (2019)** *(PACBB, AISC 1
 | Python | ≥ 3.8 |
 | matplotlib | ≥ 3.5 |
 | openpyxl | ≥ 3.0 |
+| numpy | any |
 | tkinter | bundled with CPython |
 
 ---
@@ -23,22 +50,25 @@ Implements the methodology described in **Vieira et al. (2019)** *(PACBB, AISC 1
 
 No Python installation required.
 
-1. Download `FA3.exe` and `FA3Help.md` from the [latest release](../../releases/latest)
-2. Place both files in the same folder, e.g. `C:\FounderAnalysis\`
-3. Double-click `FA3.exe` to launch
+1. Go to the [**Releases**](../../releases/latest) page
+2. Download `FA3.exe` and `FA3Help.md`
+3. Place both files in the same folder, e.g. `C:\FounderAnalysis\`
+4. Double-click `FA3.exe` to launch
 
-> Requires Windows 11 (64-bit).
+> ⚠️ Requires Windows 11 (64-bit).
 
 ---
 
 ### Option B — Run from Source
 
-#### 1. Download from GitHub (recommended)
+**1. Clone the repository**
 
-1. Go to the repository page:
-   https://github.com/joaomiguelsov/FounderSorter/tree/main
+```bash
+git clone https://github.com/joaomiguelsov/FounderSorter.git
+cd FounderSorter
+```
 
-2. Download the source files and place them all in the same folder, e.g. `C:\FounderSorter\`
+Or download the source archive from the [Releases](../../releases/latest) page and extract all files to the same folder:
 
 ```
 FounderSorter/
@@ -47,44 +77,28 @@ FounderSorter/
 ├── plots3.py
 ├── toss.py
 ├── FA3Help.md
-└── favicon.ico        (optional — application icon)
+└── favicon.ico        (optional — window icon)
 ```
 
-#### 2. Clone with Git
+**2. Install dependencies**
 
 ```bash
-git clone https://github.com/joaomiguelsov/FounderSorter.git
-cd FounderSorter
+pip install matplotlib openpyxl numpy
 ```
 
-#### 3. Install Python dependencies
+> Anaconda users: activate your environment and run `conda install matplotlib openpyxl numpy` or use `pip install` within the activated environment.
 
-```bash
-pip install matplotlib openpyxl
-```
-
-Anaconda users: use your Anaconda environment and run `conda install matplotlib openpyxl` or `pip install` inside the activated environment.
-
-#### 4. Run the application
+**3. Run**
 
 ```bash
 python FA3_Version44.py
 ```
 
-On Windows you can also double-click `FA3_Version44.py` if `.py` files are associated with Python, or use:
-
-```bash
-# Windows — explicit path example
-python C:\FounderSorter\FA3_Version44.py
-```
-
-The GUI window will open immediately. No further configuration is needed.
+On Windows you may also double-click `FA3_Version44.py` if `.py` files are associated with Python.
 
 ---
 
-### Option C — Build a standalone Windows executable
-
-If you want to build the executable yourself from source:
+### Option C — Build Executable from Source
 
 ```bash
 pip install pyinstaller
@@ -105,41 +119,18 @@ The executable will be created at `dist/FounderAnalysis.exe`.
 
 ---
 
-## Features
-
-- Load and inspect annotated XML phylogenetic trees with full node/leaf statistics
-- Classify leaves as sources or sinks via an importable type file
-- Compute migration probabilities across a date range or custom date set, for both founder types simultaneously
-- Interactive five-tab tree viewer with sortable columns and keyboard navigation
-- Three publication-ready plots with captions, legends, and embedded toolbar
-- Export results as Newick, Excel, TSV, or leaf list
-- Progress windows with elapsed time and ETA for all long-running operations
-
----
-
-## File Structure
-
-```
-├── FA3_Version44.py   # Main application — GUI, menus, threading, progress bars
-├── tree3.py           # Tree data model — XML parsing, node stats, migrationProbs()
-├── plots3.py          # Plotting module — rangeProb(), barProb(), stackProb()
-├── toss.py            # Excel export utility (SS class)
-├── FA3Help.md         # In-app help documentation
-└── favicon.ico        # Application icon (optional)
-```
-
----
-
 ## Usage
 
-### Workflow
+The application guides you through four sequential steps shown in the top toolbar:
 
-1. **File → Open XML tree file** — load an annotated phylogenetic tree (`.xml`)
-2. **File → Import source-sink file** — classify leaves as sources or sinks via a `.txt` file
-3. **Migrations → Compute using range** or **Compute using custom dates** — set migration dates, mutation rate, and options
-4. **Plots menu** — open any of the three visualisations once migration probabilities are computed
+| Step | Action | Menu |
+|---|---|---|
+| 1 — Load XML Tree | Load a PhyloTree-formatted `.xml` file | *File → Open XML tree file* |
+| 2 — Import Source/Sink | Classify leaves as source or sink via a `.txt` file | *File → Import source-sink file* |
+| 3 — Compute Migrations | Set parameters and compute migration probabilities | *Migrations → Compute using range* or *custom dates* |
+| 4 — Generate Plots | Visualise results and export figures as PNG | *Plots* menu |
 
-Full documentation is available in the in-app **Help → README** tab.
+> 📖 Full documentation is available in the in-app **Help → README** tab.
 
 ---
 
@@ -147,11 +138,11 @@ Full documentation is available in the in-app **Help → README** tab.
 
 ### XML Tree File
 
-Annotated phylogenetic tree formatted as in the [PhyloTree](http://www.phylotree.org) platform (van Oven & Kayser, 2009), with per-node attributes including mutations, haplogroups, node IDs, and pre-computed statistics (Rho, age, confidence interval).
+A single mtDNA phylogenetic tree formatted as in the [PhyloTree](http://www.phylotree.org) platform (van Oven & Kayser, 2009). Each node must have an `id` attribute and a mutations (`HGs`) attribute with pre-computed statistics (Rho, age, confidence interval).
 
-### Source-Sink Type File (`.txt`)
+### Source-Sink File (`.txt`)
 
-Plain-text file mapping leaf IDs to founder type:
+Plain-text file mapping leaf IDs to population type, one entry per line:
 
 ```
 LeafID_1    A
@@ -159,7 +150,11 @@ LeafID_2    B
 LeafID_3    A
 ```
 
-`A` = source, `B` = sink. Unclassified leaves are marked `U` and excluded from founder analysis.
+| Code | Meaning |
+|---|---|
+| `A` | Source population |
+| `B` | Sink population |
+| `U` | Unclassified — excluded from founder analysis |
 
 ---
 
@@ -167,57 +162,65 @@ LeafID_3    A
 
 | Tab | Contents |
 |---|---|
-| Tree information | All nodes and leaves: mutations, leaf count, Rho, std err, age, confidence interval |
-| ƒ¹ statistics | mutations, ƒ¹ leaves, Rho, std err |
-| ƒ² statistics | mutations, ƒ² leaves, Rho, std err, eligibility |
-| ƒ¹ founder analysis | Per-node migration probabilities at each date (ƒ¹) |
-| ƒ² founder analysis | Per-node migration probabilities at each date (ƒ²) |
+| **Step 1 — Tree information** | All nodes and leaves: mutations, leaf count, Rho (ρ), std err, age, confidence interval |
+| **Step 2 — ƒ¹ statistics** | Mutations, ƒ¹ leaf count, ρ, std err |
+| **Step 2 — ƒ² statistics** | Mutations, ƒ² leaf count, ρ, std err, ƒ² eligibility |
+| **Step 3 — ƒ¹ founder analysis** | Per-node migration probabilities at each date (founder type 1) |
+| **Step 3 — ƒ² founder analysis** | Per-node migration probabilities at each date (founder type 2) |
+
+### Founder Criteria
+
+| Criterion | Definition |
+|---|---|
+| **ƒ¹** | At least **one** derived branch of the founder haplotype is detected in the source population |
+| **ƒ²** | At least **two** derived branches are detected in the source population (stricter) |
 
 ---
 
 ## Plots
 
-### Plot 1 — Migration Scan (Probabilistic Distribution — Range)
-Smooth line plot of the mean proportion of lineages explained by migration across a continuous date range, for both ƒ¹ and ƒ².
+### Plot 1 — Migration Scan
+*Plots → Step 4 Plot 1 Migration scan probabilistic distribution*
 
-### Plot 2 — Migration Model (Probabilistic Distribution — Bars)
-Bar chart of mean ± s.d. per migration date. ƒ¹ bars are solid; ƒ² bars are hatched. Includes dual legend (migration dates + founder type).
+Continuous line plot of the mean proportion of lineages attributed to each migration date across a date range, for both ƒ¹ (blue) and ƒ² (orange). Shaded bands represent ±1 standard deviation.
+
+### Plot 2 — Migration Model
+*Plots → Step 4 Plot 2 Migration model probabilistic distribution bars*
+
+Grouped bar chart of mean ± s.d. per discrete migration date. ƒ¹ bars are solid; ƒ² bars are hatched. Uses a colour-blind-safe Okabe-Ito palette. Includes dual legend for migration dates and founder type.
 
 ### Plot 3 — Individual Proportions
-Horizontal stacked bar chart showing the per-node breakdown of migration proportions at each date. Two side-by-side panels for ƒ¹ and ƒ². Bars are optionally scaled proportional to sample size.
+*Plots → Step 4 Plot 3 Migration model individual proportions stacked*
 
----
+Horizontal stacked bar chart showing per-node migration proportions. Two side-by-side panels for ƒ¹ and ƒ². Bars can optionally be scaled proportional to sample size. Automatically downsamples large datasets for readability.
 
-## Founder Criteria
-
-| Criterion | Definition |
-|---|---|
-| **f1** | At least one derived branch of the founder haplotype is detected in the source population |
-| **f2** | At least two derived branches are detected in the source population (stricter) |
+> All plots embed a matplotlib NavigationToolbar for pan, zoom, and PNG export.
 
 ---
 
 ## Computation Parameters
 
-| Parameter | Description |
-|---|---|
-| Migration date range | Specify earliest date, latest date, and step interval |
-| Custom dates | Comma-separated list of specific migration dates |
-| Mutation rate | Per-lineage mutation rate (e.g. 2600) |
-| Use effective number | Toggle effective population size correction |
-| Remove singletons | Exclude singleton nodes from analysis |
+| Parameter | Description | Default |
+|---|---|---|
+| Latest date | Most recent migration date (years BP) | 100 |
+| Earliest date | Oldest migration date (years BP) | 50000 |
+| Interval step | Step size for date range | 100 |
+| Custom dates | Comma-separated list of specific dates | — |
+| Mutation rate | Per-lineage mutation rate (years/mutation) | 2600 |
+| Use effective number | Toggle effective population size correction | Off |
+| Remove singletons | Exclude singleton nodes from analysis | Off |
 
 ---
 
 ## Export Options
 
-| Menu item | Output |
+| Menu item | Output format |
 |---|---|
-| Export tree — Newick format | `.nwk` file |
-| Export tree — Excel spreadsheet | `.xlsx` file |
-| Export sample list (leaves) | `.txt` file |
-| Save current table (TSV) | Statistics for the active tab |
-| Save all statistics (TSV) | Combined statistics across all tabs |
+| *File → Export tree — Newick format* | `.nwk` |
+| *File → Export tree — Excel spreadsheet* | `.xlsx` |
+| *File → Export sample list (leaves)* | `.txt` |
+| *File → Save current table (TSV)* | `.txt` — statistics for the active tab |
+| *File → Save all statistics (TSV)* | `.txt` — combined statistics across all tabs |
 
 ---
 
@@ -225,30 +228,37 @@ Horizontal stacked bar chart showing the per-node breakdown of migration proport
 
 Haplogroup **B4a1a1** (Polynesian motif) was used to validate the tool:
 
-- **Source**: Near Oceania (including New Guinea)
-- **Sink**: Remote Oceania (Vanuatu to Hawaii)
-- **Tree**: 605 nodes, 2015 leaves (754 source, 332 sink)
-- **Results**: Migration scan peaks at ~3400–3500 years ago and ~900 years ago; two-migration model assigns ~80% of lineages to the first migration
+| | |
+|---|---|
+| **Source** | Near Oceania (including New Guinea) |
+| **Sink** | Remote Oceania (Vanuatu to Hawaii) |
+| **Tree** | 605 nodes, 2015 leaves (754 source, 332 sink) |
+| **Founders** | 31 ƒ¹, 21 ƒ² |
+| **Mutation rate** | 2590 years/mutation |
+| **Migration scan** | Peaks at 3400–3500 and ~900 years ago |
+| **Two-migration model** | ~80% of lineages in first migration, ~20% in second |
 
 ---
 
-## Notes
+## File Structure
 
-- The application uses background threads for XML parsing and migration computation to keep the GUI responsive
-- All plots embed a matplotlib NavigationToolbar for pan, zoom, and save-to-file
-- The `plots3.py` module is independent and can be imported outside the GUI for scripted use
-
----
-
-## Reference
-
-> Vieira D., Almeida M., Richards M.B., Soares P. (2019). *An Efficient and User-Friendly Implementation of the Founder Analysis Methodology.* PACBB 2019, AISC 1005, pp. 121–128. https://doi.org/10.1007/978-3-030-23873-5_15
-
----
-
+```
+├── FA3_Version44.py   # Main application — GUI, menus, workflow, threading, progress bars
+├── tree3.py           # Tree data model — XML parsing, node statistics, migrationProbs()
+├── plots3.py          # Plotting module — rangeProb(), barProb(), stackProb()
+├── toss.py            # Excel export utility (SS class)
+├── FA3Help.md         # In-app help documentation (README + reference paper)
+└── favicon.ico        # Application window icon (optional)
+```
 
 ---
 
 ## Authors
 
 Specify authors / institution here.
+
+---
+
+## Reference
+
+> Vieira D., Almeida M., Richards M.B., Soares P. (2019). *An Efficient and User-Friendly Implementation of the Founder Analysis Methodology.* In: Rocha M., Fdez-Riverola F., Mohamad M., Casado-Vara R. (eds) Practical Applications of Computational Biology & Bioinformatics, 13th International Conference. PACBB 2019. Advances in Intelligent Systems and Computing, vol 1005. Springer, Cham. https://doi.org/10.1007/978-3-030-23873-5_15
