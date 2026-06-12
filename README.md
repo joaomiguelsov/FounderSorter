@@ -5,7 +5,6 @@
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)
 ![Platform](https://img.shields.io/badge/Platform-Windows%2011-0078D4?logo=windows&logoColor=white)
 ![GUI](https://img.shields.io/badge/GUI-Tkinter-orange)
-![License](https://img.shields.io/badge/License-MIT-green)
 
 Computes and visualises the probability that lineages in a phylogenetic tree were introduced by migration events at specific dates, distinguishing two founder stringency levels (ƒ¹ and ƒ²).
 
@@ -254,14 +253,12 @@ Haplogroup **B4a1a1** (Polynesian motif) was used to validate the tool:
 ---
 
 ## Authors
-
-- **João Carneiro**
 - **Daniel Vieira**
 - **Mafalda Almeida**
 - **Martin B. Richards**
 - **Pedro Soares**
 - **Pedro Fernandes**
-
+- **João Carneiro**
 ---
 
 ## Reference
